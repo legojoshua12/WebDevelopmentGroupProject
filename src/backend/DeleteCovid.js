@@ -55,10 +55,10 @@ function Func_DeleteCovid(props)
 
    
     
-    function ShowBooksTable() {
-        return state.map(function(currentbook, i){
+    function ShowCovidTable() {
+        return state.map(function(currentcovid, i){
            
-            return <Booksdata book={currentbook} key={i} />;
+            return <Coviddata covid={currentcovid} key={i} />;
         })
     }
     useEffect(() => {
@@ -84,7 +84,7 @@ function Func_DeleteCovid(props)
                     </tr>
                 </thead>
                 <tbody>
-                    { IsLoad ? ShowBooksTable() : console.log("No table data")}
+                    { IsLoad ? ShowCovidTable() : console.log("No table data")}
                 </tbody>
             </table>
         </div>
