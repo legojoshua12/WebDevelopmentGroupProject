@@ -1,30 +1,31 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Covid_Form from "./backend/AddCases"
-import DisplayCovid from "./backend/DisplayCases.js"
-import Covid_Update from "./backend/CovidUpdate"
-import DeleteCase from "./backend/DeleteCase"
+import Book_Form from "./backend/AddCase"
+import ShowBooksList from "./backend/DisplayCases.js"
+import Book_UpDateForm from "./backend/CovidUpdate"
+import Func_DeleteBook from "./backend/DeleteCase"
+import ShowOSInfo from "./backend/GetOSInformation"
 class App extends Component {
   render() {
     return (
       <Router>
         <div className="container">
-        <center><h1>On-Line COVID database using REACT</h1></center>
+        <center><h2> On-Line Covid Database using React   </h2> </center>
            <br/>
             
             <nav className="navbar navbar-expand-lg navbar-light bg-success">
-            <Link to="/" className="navbar-brand"><h4>Add COVID information</h4></Link>
-            <Link to="/edit/:id" className="navbar-brand"><h4>Update COVID information</h4></Link>
-            <Link to="/Delete/:id" className="navbar-brand"><h4>Delete COVID information</h4></Link>
-            <Link to="/DisplayCovid" className="navbar-brand"><h4>Display all cases</h4></Link>
+            <Link to="/" className="navbar-brand"><h4>Add Case Information</h4></Link>
+            <Link to="/ShowOSInfo" className="navbar-brand"><h4>Show OS Info</h4></Link>
+            <Link to="/DisplayBooks" className="navbar-brand"><h4>Display All Covid Data</h4> </Link>
+            
             </nav>
-
           <br/>
-          <Route path="/" component={Covid_Form} />
-          <Route path="/edit/:id" component={Covid_Update} />
-          <Route path="/Delete/:id" component={DeleteCase} />
-          <Route path="/DisplayCovid" component={DisplayCovid} /> 
+          <Route path="/" exact component={Book_Form} />
+          <Route path="/edit/:id" component={Book_UpDateForm} />
+          <Route path="/Delete/:id" component={Func_DeleteBook} />
+          <Route path="/DisplayBooks" component={ShowBooksList} /> 
+          <Route path="/ShowOSInfo" component={ShowOSInfo} />
         </div>
       </Router>
     );

@@ -1,44 +1,48 @@
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-const Coviddata = props => (
+const Booksdata = props => (
     <tr>
-        <td>{props.Covid.date}</td>
-        <td>{props.Covid.county}</td>
-        <td>{props.Covid.state}</td>
-        <td>{props.Covid.cases}</td>
-        <td>{props.Covid.deaths}</td>
+        <td>{props.book.date}</td>
+        <td>{props.book.deaths}</td>
+        <td>{props.book.county}</td>
+        <td>{props.book.state}</td>
+        <td>{props.book.cases}</td>
         <td>
-            <Link to={"/Delete/"+props.Covid._id}>Delete</Link>
+            <Link to={"/edit/"+props.book._id}>Edit</Link>
+        </td>
+        <td>
+            <Link to={"/Delete/"+props.book._id}>Delete</Link>
         </td>
     </tr>
 )
-function DeleteCase(props) 
+function Func_DeleteBook(props) 
  {
     const [state, setState] = useState({
         date: "",
         county: "",
-        state: "",
-        cases:"",
-        deaths: "",
-      });
-    
+        cases: "",
+        state:"",
+        deaths: 0,
+      
+    });
+      //let url= "http://localhost:5000/"
     const [IsLoad, setLoad]=useState(false)
     const [IsDeleted,setDelete]=useState(false)
    
     useEffect(()=>{
         console.log("useeff delete"+props.match.params.id)
-        axios.post("http://localhost:5000/deleteCase/"+props.match.params.id)
+        axios.post("http://localhost:5000/deleteBook/"+props.match.params.id)
         .then(res => {
             console.log("data deleted "+res.data)
             setDelete(true)
-            axios.get("http://localhost:5000/allcases")
+            axios.get("http://localhost:5000/allbooks")
             .then(res => {
-                
+                // set the state variable from the data received from the axios api
                 console.log("data received "+res.data)
                 res.data.map(function(currentstate, i){
                     console.log(currentstate)
-                
+                //setLoad(true);
             })      
                 setState(res.data)
                 console.log("data set in the state and state length"+state.length)
@@ -54,10 +58,10 @@ function DeleteCase(props)
 
    
     
-    function ShowCovidTable() {
-        return state.map(function(currentcovid, i){
+    function ShowBooksTable() {
+        return state.map(function(currentbook, i){
            
-            return <Coviddata book={currentcovid} key={i} />;
+            return <Booksdata book={currentbook} key={i} />;
         })
     }
     useEffect(() => {
@@ -75,19 +79,19 @@ function DeleteCase(props)
                 <thead>
                     <tr>
                         <th>Date</th>
+                        <th>Deaths</th>
                         <th>County</th>
                         <th>State</th>
                         <th>Cases</th>
-                        <th>Deaths</th>
                        
                     </tr>
                 </thead>
                 <tbody>
-                    { IsLoad ? ShowCovidTable() : console.log("No table data")}
+                    { IsLoad ? ShowBooksTable() : console.log("No table data")}
                 </tbody>
             </table>
         </div>
     )
     }
 
-export default DeleteCase;
+export default Func_DeleteBook;
