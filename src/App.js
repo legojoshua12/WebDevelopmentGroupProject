@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Book_Form from "./backend/AddCase"
-import ShowBooksList from "./backend/DisplayCases.js"
-import Book_UpDateForm from "./backend/CovidUpdate"
-import Func_DeleteBook from "./backend/DeleteCase"
-import ShowOSInfo from "./backend/GetOSInformation"
+import Book_Form from "./objects/AddCase"
+import ShowBooksList from "./objects/DisplayCases.js"
+import Book_UpDateForm from "./objects/CovidUpdate"
+import Func_DeleteBook from "./objects/DeleteCase"
+import ShowOSInfo from "./objects/GetOSInformation"
 class App extends Component {
   render() {
     return (
