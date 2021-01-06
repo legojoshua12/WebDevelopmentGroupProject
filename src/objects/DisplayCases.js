@@ -1,18 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-// hpw does it work
-// we use class components.
-//state of the component is initialzed in constructor
-//we use componentDidMount event for receiving data from the server through axios library
-// the received data is stored in the state variable of the componenet using this.setState
-// the Data is rendered using a HTML Table in the render method.first we define the table header
-// then for displaying the data in the table we create a function Showbooks in the table body
-// The showbooks function read the data from the state of the components using java script map method 
-// the java script map methods read object by object from the give variable and then we passed this object (state) 
-// to another function Booksdata for displaying it with current book as property.
-// The books data uses td tag as table data and  show the json book data in each of these table 
-// Note the books data must be in the same order as defined in the schema and saved in the mongodb
+
 const Booksdata = props => (
     <tr>
         <td>{props.book.date}</td>
@@ -33,14 +22,14 @@ export default class ShowBooksList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {books: []}; // books is the name of the state variable here
+        this.state = { books:[] };
     }
     componentDidMount() {
-        axios.get('http://localhost:5000/allbooks/')//('http://localhost:5000/allbooks')//'http://localhost:5000/todos/'
-            .then(response => {
-                console.log("response.data",response.data)
-                this.setState({ books: response.data });  // set state variable with received data
-                console.log("Received data",this.state.todos)
+        axios.get('http://localhost:8080/CovidDatabase/')
+            .then(res => {
+                const books = res.data;
+                console.log(res.data);
+                this.setState({ books });
             })
             .catch(function (error){
                 console.log(error);
@@ -48,7 +37,9 @@ export default class ShowBooksList extends Component {
     }
 
     Show_Books() {
-        return this.state.books.map(function(currentbook, i){
+        console.log(this.state.books)
+        const booksArray = Object.values(this.state);
+        return booksArray.map(function(currentbook, i){
             console.log("currentodo object-->"+currentbook +"  i is "+i)
             return <Booksdata book={currentbook} key={i} />;
         })

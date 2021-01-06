@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 require('dotenv').config();
@@ -20,6 +21,7 @@ mongoose.connection.on('connected', () => {
 
 // Data parsing
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 if (process.env.NODE_ENV === 'production') {
