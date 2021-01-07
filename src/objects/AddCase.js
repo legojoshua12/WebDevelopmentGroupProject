@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import axios from 'axios';
 
-function Book_Form() {
-  let url= "http://localhost:5000/" 
+function Case_Form() {
+  let url= "http://localhost:8080/CovidDatabase"
   const [state, setState] = useState({
     date: "",
     county: "",
     state: "",
     cases:"",
-    deaths: 1990,
+    deaths: "",
   });
 
  
@@ -23,7 +23,7 @@ function Book_Form() {
   {
   
    e.preventDefault();
-   const bookdata={
+   const casedata={
            date:state.date,
            deaths:state.deaths,
            county:state.county,
@@ -32,12 +32,12 @@ function Book_Form() {
 
    }
    
-   axios.post(url+"addbooks", bookdata)
+   axios.post(url+"/add", casedata)
    .then(res => console.log(res.data));
    }
   return (
     <div style={{marginTop: 10}}>
-      <h3>Add Book</h3>
+      <h3>Add Case</h3>
       <form onSubmit={OnSubmit} method="Post">
         <div className="form-group"> 
           <label>Date: </label>
@@ -47,56 +47,36 @@ function Book_Form() {
             onChange={handleChange}/>
         </div>
         <div className="form-group">
-          <label>Counties: </label>
+          <label>County: </label>
           <input  className="form-control"
             name="county"value={state.county}
             onChange={handleChange}/>
         </div>
-        <div className="form-group">
-          <label>
-            Cases:{" "}
-            <select className="form-control"
-            name="cases" value={state.cases}
-            onChange={handleChange}>
-            <option value="Computer Science">CS</option>
-            <option value="Programming" >Programming</option>
-            <option value="Data Science">Data Sceince</option>
-            <option value="AI">AI</option>
-            <option value="Engineering">Engineering</option>
-          </select>
-          </label>
+        <div className="form-group"> 
+          <label>State: </label>
+          <input  className="form-control"
+            type="text" name="state"
+            value={state.state}
+            onChange={handleChange}/>
         </div>
-        <div className="form-group">
-        <label>State: </label>
-        <div className="form-check form-check-inline">
-          <input className="form-check-label"
-            type="radio" name="state" value="Hard Copy"
-            checked={state.state === "Hard Copy"}
-            onChange={handleChange} />
-         <label className="form-check-label"> Hard Copy </label>
-         </div>
-         <div className="form-check form-check-inline">
-         <input className="form-check-label"
-            type="radio"name="state" value="Electronic Copy"
-            checked={state.state === "Electronic Copy"}
-            onChange={handleChange}
-          />
-         <label className="form-check-label"> Electronic Copy</label>
+        <div className="form-group"> 
+          <label>Cases: </label>
+          <input  className="form-control"
+            type="text" name="cases"
+            value={state.cases}
+            onChange={handleChange}/>
         </div>
-        </div>  
-        <div>
-        <label>
-          Deaths (between 0 and 2000):
-          <input
-            type="range"name="deaths"
-            min="0"max="2000" value={state.deaths}
-            onChange={handleChange} />
-        </label>
+        <div className="form-group"> 
+          <label>Deaths: </label>
+          <input  className="form-control"
+            type="text" name="deaths"
+            value={state.deaths}
+            onChange={handleChange}/>
         </div>
         
         <div className="form-group">
         <center>
-            <input type="submit" value="Add this book" className="btn btn-primary" />
+            <input type="submit" value="Add this case" className="btn btn-primary" />
         </center>                   
         </div>
                 
@@ -107,4 +87,4 @@ function Book_Form() {
  
 }
 
-export default Book_Form;
+export default Case_Form;

@@ -2,44 +2,43 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Booksdata = props => (
+const Casesdata = props => (
     <tr>
-        <td>{props.book.date}</td>
-        <td>{props.book.deaths}</td>
-        <td>{props.book.county}</td>
-        <td>{props.book.state}</td>
-        <td>{props.book.cases}</td>
+        <td>{props.case.date}</td>
+        <td>{props.case.deaths}</td>
+        <td>{props.case.county}</td>
+        <td>{props.case.state}</td>
+        <td>{props.case.cases}</td>
         <td>
-            <Link to={"/edit/"+props.book._id}>Edit</Link>
+            <Link to={"/edit/"+props.case._id}>Edit</Link>
         </td>
         <td>
-            <Link to={"/Delete/"+props.book._id}>Delete</Link>
+            <Link to={"/Delete/"+props.case._id}>Delete</Link>
         </td>
     </tr>
 )
 
-export default class ShowBooksList extends Component {
+export default class ShowCasesList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { books:[] };
+        this.state = { cases:[] };
     }
     componentDidMount() {
         axios.get('http://localhost:8080/CovidDatabase/')
             .then(res => {
-                const books = res.data;
-                this.setState({ books });
+                const cases = res.data;
+                this.setState({ cases });
             })
             .catch(function (error){
                 console.log(error);
             })
     }
 
-    Show_Books() {
-        const booksArray = Object.values(this.state);
-        const data={date: "w", county: "place", state: "texas", cases: "2", deaths: "0"};
-        return booksArray[0].map(function (currentbook, i) {
-            return <Booksdata book={currentbook} key={i}/>;
+    Show_Cases() {
+        const casesArray = Object.values(this.state);
+        return casesArray[0].map(function (currentcase, i) {
+            return <Casesdata case={currentcase} key={i}/>;
         });
     }
 
@@ -55,11 +54,10 @@ export default class ShowBooksList extends Component {
                             <th>County</th>
                             <th>State</th>
                             <th>Cases</th>
-                           
                         </tr>
                     </thead>
                     <tbody>
-                        { this.Show_Books() }
+                        { this.Show_Cases() }
                     </tbody>
                 </table>
             </div>
