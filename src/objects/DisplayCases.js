@@ -37,11 +37,9 @@ export default class ShowBooksList extends Component {
 
     Show_Books() {
         const booksArray = Object.values(this.state);
-        booksArray.forEach(element => {
-            const elementArray = Object.values(element);
-            return elementArray.map(currentbook => {
-                return <Booksdata book={currentbook} key={currentbook._id} />;
-            });
+        const data={date: "w", county: "place", state: "texas", cases: "2", deaths: "0"};
+        return booksArray[0].map(function (currentbook, i) {
+            return <Booksdata book={currentbook} key={i}/>;
         });
     }
 
