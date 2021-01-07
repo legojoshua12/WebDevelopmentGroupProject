@@ -10,6 +10,6 @@ const CasesSchema = new Schema({
 });
 
 // Model
-const Case = mongoose.model('Case', CasesSchema);
+const Case = mongoose.model('Case', CasesSchema, 'CovidData');
 
 module.exports = Case;

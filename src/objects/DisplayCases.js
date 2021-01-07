@@ -28,7 +28,6 @@ export default class ShowBooksList extends Component {
         axios.get('http://localhost:8080/CovidDatabase/')
             .then(res => {
                 const books = res.data;
-                console.log(res.data);
                 this.setState({ books });
             })
             .catch(function (error){
@@ -37,12 +36,13 @@ export default class ShowBooksList extends Component {
     }
 
     Show_Books() {
-        console.log(this.state.books)
         const booksArray = Object.values(this.state);
-        return booksArray.map(function(currentbook, i){
-            console.log("currentodo object-->"+currentbook +"  i is "+i)
-            return <Booksdata book={currentbook} key={i} />;
-        })
+        booksArray.forEach(element => {
+            const elementArray = Object.values(element);
+            return elementArray.map(currentbook => {
+                return <Booksdata book={currentbook} key={currentbook._id} />;
+            });
+        });
     }
 
     render() {
