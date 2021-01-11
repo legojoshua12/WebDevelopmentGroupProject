@@ -40,16 +40,15 @@ useEffect(() => {
    {
     e.preventDefault();
     const casedata={
-            date:state.date,
-            county:state.county,
-            state:state.state,
-            cases:state.cases,
-            deaths:state.deaths
-
+      date:state.date,
+      county:state.county,
+      state:state.state,
+      cases:state.cases,
+      deaths:state.deaths
     }
     
     axios.post(url+"/update/"+props.match.params.id, casedata)
-    .then(res => console.log(res.data));
+    .then(res => window.location.href = "http://localhost:3000/DisplayCases");
    }
   return (
     <div style={{marginTop: 10}}>

@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Case_Form from "./objects/AddCase"
-import ShowCasesList from "./objects/DisplayCases.js"
-import Case_UpDateForm from "./objects/CovidUpdate"
-import Func_DeleteBook from "./objects/DeleteCase"
-import ShowOSInfo from "./objects/GetOSInformation"
+import Case_Form from "./objects/AddCase";
+import ShowCasesList from "./objects/DisplayCases.js";
+import Case_UpDateForm from "./objects/CovidUpdate";
+import Func_DeleteBook from "./objects/DeleteCase";
+import ShowOSInfo from "./objects/GetOSInformation";
+
+
 class App extends Component {
   render() {
     return (

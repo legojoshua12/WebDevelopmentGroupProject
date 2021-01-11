@@ -1,22 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Casesdata = props => (
-    <tr>
-        <td>{props.case.date}</td>
-        <td>{props.case.deaths}</td>
-        <td>{props.case.county}</td>
-        <td>{props.case.state}</td>
-        <td>{props.case.cases}</td>
-        <td>
-            <Link to={"/edit/"+props.case._id}>Edit</Link>
-        </td>
-        <td>
-            <Link to={"/Delete/"+props.case._id}>Delete</Link>
-        </td>
-    </tr>
-)
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 
 export default class ShowCasesList extends Component {
 
@@ -35,31 +22,52 @@ export default class ShowCasesList extends Component {
             })
     }
 
-    Show_Cases() {
+    Get_Cases() {
         const casesArray = Object.values(this.state);
         return casesArray[0].map(function (currentcase, i) {
-            return <Casesdata case={currentcase} key={i}/>;
+            let urledit = "/edit/" + currentcase._id;
+            currentcase.edit = (<React.Fragment><a href={urledit}>Edit</a></React.Fragment>);
+            let urldelete = "/Delete/" + currentcase._id;
+            currentcase.delete = (<React.Fragment><a href={urldelete}>Delete</a></React.Fragment>);
+            return currentcase;
         });
     }
 
     render() {
+
+        const columns = [
+            { dataField: "_id", text: "", hidden: true},
+            { dataField: "date", text: "Date" },
+            { dataField: "deaths", text: "Deaths" },
+            { dataField: "county", text: "County" },
+            { dataField: "state", text: "State" },
+            { dataField: "cases", text: "Cases", filter: textFilter() },
+            { dataField: "edit", text: "Edit" },
+            { dataField: "delete", text: "Delete" }
+        ]
+
+        const pagination = paginationFactory({
+            page: 2,
+            sizePerPage: 10,
+            lastPageText: '>>',
+            firstPageText: '<<',
+            nextPageText: '>',
+            prePageText: '<',
+            showTotal: true,
+            alwaysShowAllBtns: true,
+          });
+
         return (
             <div>
                 <h3>Cases List</h3>
-                <table className="table table-striped" class="table table-hover"style={{ marginTop: 20 }} >
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Deaths</th>
-                            <th>County</th>
-                            <th>State</th>
-                            <th>Cases</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { this.Show_Cases() }
-                    </tbody>
-                </table>
+                <BootstrapTable
+                    keyField="_id"
+                    data={this.Get_Cases()}
+                    columns={columns}
+                    pagination={pagination}
+                    filter={ filterFactory() }
+                    ref='table'
+                />
             </div>
         )
     }

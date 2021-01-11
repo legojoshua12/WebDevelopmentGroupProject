@@ -33,12 +33,14 @@ function Case_Form() {
    }
    
    axios.post(url+"/add", casedata)
-   .then(res => console.log(res.data));
+   .then(res => 
+      window.location.href = "http://localhost:3000/DisplayCases"
+    );
    }
   return (
     <div style={{marginTop: 10}}>
       <h3>Add Case</h3>
-      <form onSubmit={OnSubmit} method="Post">
+      <form action= "/DisplayCases" onSubmit={OnSubmit} method="Post">
         <div className="form-group"> 
           <label>Date: </label>
           <input  className="form-control"
@@ -76,7 +78,7 @@ function Case_Form() {
         
         <div className="form-group">
         <center>
-            <input type="submit" value="Add this case" className="btn btn-primary" />
+          <input type="submit" value="Add this case" className="btn btn-primary" />
         </center>                   
         </div>
                 
